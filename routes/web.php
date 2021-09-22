@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('import', function () {
@@ -35,3 +36,8 @@ Route::post('import', function (Request $request) {
     Excel::import(new TeamImport, request()->file('excel'), null, Excel2::XLSX);
 
 });
+
+use App\Http\Controllers\AuthController;
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('auth.loginForm');
+Route::post('login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
