@@ -11,10 +11,23 @@
 {{--  選單  --}}
 <div>
     <ul>
-        <li><a href="">首頁</a></li>
-        <li><a href="">管理參賽名單</a></li>
-        <li><a href="{{route('auth.loginForm')}}">登入</a></li>
-        <li><a href="">登出</a></li>
+        <li><a href="{{route('index')}}">首頁</a></li>
+        
+        
+        @guest()
+            <li><a href="{{route('auth.loginForm')}}">登入</a></li>
+        @endguest
+        
+        @auth()
+            @if(auth()->user()->is_admin)
+                <li><a href="{{route('admin.import')}}">管理參賽名單</a></li>
+            @endif
+        
+            <form method="post" action="{{route('auth.logout')}}">
+                @csrf
+                <li><button type="submit">登出</button></li>
+            </form>
+        @endauth
     </ul>
 </div>
 

@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 Route::get('import', function () {
     return view('excel-import');
-});
+})->middleware(['auth'])->name('admin.import');
 
 use \Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
